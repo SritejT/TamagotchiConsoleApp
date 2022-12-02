@@ -8,14 +8,19 @@
 import Foundation
 
 class Tamagotchi {
-    var weight: Int
-    var hunger: Int
-    var age: Int
+    private var weight: Int
+    private var hunger: Int
+    private var age: Int
+    private var isDead: Bool
+    private var sickness: Int
+    private var uncleanedPoo
     
     init() {
-        self.weight = 0
-        self.hunger = 0
+        self.weight = 50
+        self.hunger = 5
         self.age = 0
+        self.isDead = false
+        self.sickness = 0
     }
     
     func getWeight() -> Int {
@@ -30,7 +35,17 @@ class Tamagotchi {
         return self.age
     }
     
+    func poo() {
+        let volumeOfPoo = self.weight
+        
+    }
+    
     func eatSnack(snackSize: Int) {
-        self.hunger -= snackSize
+        if snackSize > self.hunger {
+            self.weight += (snackSize - self.hunger)
+            self.hunger = 0
+        } else {
+            self.hunger -= snackSize
+        }
     }
 }

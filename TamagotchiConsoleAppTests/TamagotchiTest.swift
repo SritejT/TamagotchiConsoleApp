@@ -9,23 +9,26 @@ import XCTest
 
 class TamagotchiTest: XCTestCase {
 
-    func testWhenICreateTamagotchiItsWeightHungerAndAgeAreInitialisedTo0() {
+    func testWhenICreateTamagotchiItsWeightHungerAndAgeAreInitialisedToCorrectValues() {
         //arrange
         //act
         let tamagotchi = Tamagotchi()
         //assert
-        XCTAssertEqual(0, tamagotchi.getWeight())
-        XCTAssertEqual(0, tamagotchi.getHunger())
+        XCTAssertEqual(50, tamagotchi.getWeight())
+        XCTAssertEqual(5, tamagotchi.getHunger())
         XCTAssertEqual(0, tamagotchi.getAge())
     }
     
-    func testWhenTamagotchiEatsSnackHungerShouldDecreaseBySizeOfSnack() {
+    func testWhenTamagotchiEatsSnackHungerShouldDecreaseBySizeOfSnackAndWeightShouldIncreaseAccordingToTheSizeOfTheSnack() {
         let sizeOfSnack = [1, 2, 3, 4, 5, 6, 7, 45, 56, 567, 23]
-        for i in sizeOfSnack {
+        let expected = [[4, 50], [3, 50], [2, 50], [1, 50], [0, 50], [0, 51], [0, 52], [0, 90], [0, 101], [0, 612], [0, 68]]
+        for i in 0..<sizeOfSnack.count {
             let tamagotchi = Tamagotchi()
-            let oldHungerValue = tamagotchi.getHunger()
-            tamagotchi.eatSnack(snackSize: i)
-            XCTAssertEqual(oldHungerValue - i, tamagotchi.getHunger())
+            tamagotchi.eatSnack(snackSize: sizeOfSnack[i])
+            XCTAssertEqual(expected[i][0], tamagotchi.getHunger())
+            XCTAssertEqual(expected[i][1], tamagotchi.getWeight())
         }
     }
+    
+    
 }
