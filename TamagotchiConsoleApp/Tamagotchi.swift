@@ -13,7 +13,7 @@ class Tamagotchi {
     private var age: Int
     private var isDead: Bool
     private var sickness: Int
-    private var uncleanedPoo
+    private var uncleanedPoo: Int
     
     init() {
         self.weight = 50
@@ -21,6 +21,7 @@ class Tamagotchi {
         self.age = 0
         self.isDead = false
         self.sickness = 0
+        self.uncleanedPoo = 0
     }
     
     func getWeight() -> Int {
@@ -35,17 +36,39 @@ class Tamagotchi {
         return self.age
     }
     
+    func getSickness() -> Int {
+        return self.sickness
+    }
+    
     func poo() {
-        let volumeOfPoo = self.weight
-        
+        if !isDead {
+            self.uncleanedPoo += self.weight
+            if self.uncleanedPoo >= 100 {
+                self.sickness += 1
+                print("You should clean your tamagotchi's poo!")
+                if self.sickness >= 5 {
+                    self.killTamagotchi()
+                }
+            }
+        }
     }
     
     func eatSnack(snackSize: Int) {
-        if snackSize > self.hunger {
-            self.weight += (snackSize - self.hunger)
-            self.hunger = 0
-        } else {
-            self.hunger -= snackSize
+        if !isDead {
+            if snackSize > self.hunger {
+                self.weight += (snackSize - self.hunger)
+                self.hunger = 0
+            } else {
+                self.hunger -= snackSize
+            }
         }
+    }
+    
+    func checkIfDead() -> Bool {
+        return self.isDead
+    }
+    
+    func killTamagotchi() {
+        self.isDead = true
     }
 }

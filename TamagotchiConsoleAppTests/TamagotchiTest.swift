@@ -30,5 +30,15 @@ class TamagotchiTest: XCTestCase {
         }
     }
     
+    func testWhenTamagotchiPoosItsUncleanedPooShouldIncrease() {
+        let expected = 4
+        let tamagotchi = Tamagotchi()
+        tamagotchi.poo()
+        tamagotchi.eatSnack(snackSize: 55)
+        for _ in 0..<4 {
+            tamagotchi.poo()
+        }
+        XCTAssertEqual(expected, tamagotchi.getSickness())
+    }
     
 }
